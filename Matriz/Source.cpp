@@ -10,10 +10,10 @@ int main()
 	Matriz miMatriz(3, 3, 0, 1);
 	miMatriz.Llenar();
 	cout << miMatriz;
+	miMatriz.diagonal();
+	miMatriz.consultarDatos(5,6);
 
-	Matriz otra(3, 4, 0, 1);
-	otra.Llenar();
-	cout << miMatriz;
+	
 
 	system("pause");
 }

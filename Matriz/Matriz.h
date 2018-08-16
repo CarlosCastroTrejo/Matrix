@@ -17,6 +17,9 @@ class Matriz
 	void operator+=(Matriz);
 	void operator*=(Matriz);
 	bool operator>(Matriz);
+	void diagonal();
+
+	void consultarDatos(int, int);
 
 
 

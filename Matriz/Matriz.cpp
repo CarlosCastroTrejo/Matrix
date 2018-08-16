@@ -1,6 +1,7 @@
 #include "Matriz.h"
 #include <iostream>
 #include "Dato.h"
+#include <assert.h>     // assert
 using namespace std;
 
 Matriz::Matriz(int n, int m, int formaCelda, int tipoLLenado)
@@ -136,6 +137,36 @@ void Matriz::operator*=(Matriz otraMatriz)
 bool Matriz::operator>(Matriz otraMatriz)
 {
 	return (N > otraMatriz.N && M > otraMatriz.M);
+}
+
+void Matriz::diagonal()
+{
+	cout << endl;
+	for (int x = 0; x < N; x++) 
+	{
+		for (int space = 0; space < x; space++) 
+		{
+			cout << "  ";
+		}
+		for (int y = 0; y < M; y++)
+		{
+			if (x == y) 
+			{
+				cout << arreglo[x][y];
+			}
+		}
+		cout << endl;
+	}
+}
+
+void Matriz::consultarDatos(int x, int y)
+{
+	cout << endl;
+	assert(x <= N && "La matriz no tiene el numero de fila que quieres acceder\n");
+	assert(y <= M && "La matriz no tiene el numero de fila que quieres acceder\n");
+
+	
+	cout << arreglo[x][y];
 }
 
 ostream& operator<<(ostream &o, const Matriz  &ma)
