@@ -21,6 +21,7 @@ void Dato::llenarDato(int numero,string texto)
 
  ostream&operator<<(ostream& o, const Dato& data) 
 {
+	 // Se le asigna a la variable 'o' de tipo ostream el numero y texto del objeto Dato
 	 o << data.numero << " " << data.texto;
 	 return o;
 }
@@ -31,14 +32,20 @@ int Dato::getNumero()
 	return this->numero;
 }
 
-int Dato::setNumero(int x)
+int Dato::setNumero(int nuevoNumero)
 {
-	this->numero += x;
+	this->numero = nuevoNumero;
 	return this->numero;
 }
 
 string Dato::getTexto()
 {
+	return this->texto;
+}
+
+string Dato::setTexto(string nuevoTexto)
+{
+	this->texto = nuevoTexto;
 	return this->texto;
 }
 

@@ -1,2 +1,5 @@
 ﻿  Source.cpp
+  Matriz.cpp
+\\mac\home\documents\tec de monterrey\3er semestre\estructura de datos\matriz\matriz\matriz.cpp(76): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Generando código...
   Matriz.vcxproj -> \\Mac\Home\Documents\Tec de Monterrey\3er Semestre\Estructura de Datos\Matriz\Debug\Matriz.exe
