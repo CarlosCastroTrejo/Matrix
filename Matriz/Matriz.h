@@ -19,6 +19,12 @@ class Matriz
 	// Matriz 
 	Dato arreglo[20][20]; 
 
+	//Variable que acumula la suma de los enteros en los renglones especificados del Metodo Sum
+	int acumrenglon;
+
+	//Variable que acumula la suma de los enteros en las columas especificados del Metodo Sum
+	int acumcolumna;
+
 	public:
 	/* Matriz : Constructor del objeto
 		Input: Entero que asigna el valor a N, entero que asigna el valor a M, entero que asigna el valor a formaCelda y entero que asigna el valor a tipoLlenado
@@ -62,7 +68,7 @@ class Matriz
 		Input: Ninguno
 		Output: Ninguno
 	*/
-	void modificarCelda();
+	void modificarCelda(int, int);
 
 	/* Mostrar Orilla: Metodo encargado de mostrar todos los elementos cuya coordenada renglón sea n-1 y coordenada columna sea m-1. 
 		Input: Ninguno
@@ -77,10 +83,22 @@ class Matriz
 	void mostrarCentro();
 
 	/* Intercambiar Elementos: Metodo encargado de intercambiar todos los elementos del renglón/columna x por los del renglón/columna y.
-	Input: Ninguno
-	Output: Ninguno
+		Input: Ninguno
+		Output: Ninguno
 	*/
-	void intercambiarElementos();
+	void intercambiarElementos(bool,int,int);
+
+	/* Transpuesta : Metodo encargado de modificar la matriz original y calcular su transpuesta
+		Input: Ninguno
+		Output: Ninguno
+	*/
+	void transpuesta();
+
+	/* Suma Renglon o Columna : Metodo encargado de suma todos los numeros de cierta columna a renglon
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: valor entero que hace referencia a la suma 
+	*/
+	int sumaRenglonColumna(bool,int);
 
 	/* Llenar: Metodo encargado de asignar valores a cada casilla de la Matriz
 		Input: Ninguno

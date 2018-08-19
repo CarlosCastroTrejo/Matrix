@@ -70,9 +70,75 @@ void Matriz::Llenar()
 	}break;
 	case 2:
 	{
+		string dato;
 		ifstream archivo;
-		archivo.open("llenadoMatriz.csv");
+		archivo.open("llenarDatos.csv");
 
+		int x = 0, y = 0;
+		if (archivo.is_open())
+		{
+			while (!archivo.eof())
+			{
+				getline(archivo, dato);
+				if (formaCelda == 0)
+				{
+					while (dato.length() > 0)
+					{
+						arreglo[x][y].setNumero(stoi(dato.substr(0, dato.find(','))));
+						dato.erase(0, dato.find(',') + 1);
+						if (dato.length() == 1)
+						{
+							y++;
+							arreglo[x][y].setNumero(stoi(dato.substr(0, 1)));
+							dato.erase(0, 1);
+						}
+						y++;
+					}
+					if (y > M + 1)
+					{
+						assert(0 && "El numero de columnas es erroneo");
+					}
+					y = 0;
+
+					x++;
+					if (x > N)
+					{
+						assert(0 && "El numero de renglones es erroneo");
+					}
+				
+				}
+				else 
+				{
+					while (dato.length() > 0)
+					{
+						arreglo[x][y].setNumero(stoi(dato.substr(0, dato.find(','))));
+						dato.erase(0, dato.find(',') + 1);
+						arreglo[x][y].setTexto(dato.substr(0, dato.find(',')));
+						dato.erase(0, dato.find(',') + 1);
+						if (y == M-1)
+						{
+							dato.erase(0, dato.length());
+						}
+						y++;
+					}
+					if (y > M )
+					{
+						assert(0 && "El numero de columnas es erroneo");
+					}
+					y = 0;
+					x++;	
+					if (x > N)
+					{
+						assert(0 && "El numero de renglones es erroneo");
+					}
+				}
+			}
+			archivo.close();
+		}
+		else
+		{
+			cout << "Archivo inexistente o faltan permisos para abrirlo" << endl;
+		}
 	}break;
 	case 3:
 	{
@@ -135,13 +201,9 @@ void Matriz::desplegarDiagonal()
 	}
 }
 
-void Matriz::modificarCelda()
+void Matriz::modificarCelda(int tempX,int tempY)
 {
-	int tempX=0, tempY=0;
-	cout << endl << "Ingresa la coordenada de la celda X: ";
-	cin >> tempX;
-	cout << endl << "Ingresa la coordenada de la celda Y: ";
-	cin >> tempY;
+	
 
 	assert(tempX <= N-1 && tempX>= 0 && "La matriz no tiene el numero de fila que quieres acceder\n");
 	assert(tempX <= M-1 && tempY >= 0 && "La matriz no tiene el numero de fila que quieres acceder\n");
@@ -214,25 +276,19 @@ void Matriz::mostrarCentro()
 	}
 }
 
-void Matriz::intercambiarElementos()
+void Matriz::intercambiarElementos(bool eleccion,int nueva,int vieja)
 {
-	int eleccion = 0;
-	int nueva = 0;
-	int vieja = 0;
+	cout << endl;
+	
 	int temporal = 0;
-	cout << "Elige que quieres intercabiar: \n" << "1) Columna" << endl << "2) Renglon " << endl;
-	cin >> eleccion;
-	if (eleccion == 1) 
+
+	if (eleccion) 
 	{
-		cout << "Que columna quieres cambiar: ";
-		cin >> vieja; 
-		cout << "A que columna la quieres mover: ";
-		cin >> nueva;
 
 		assert(vieja < M && "El numero de columna no existe");
 		assert(nueva < M && "El numero de columna no existe");
 
-		for (int x = 0; x < N; x++) 
+		for (int x = 0; x < M; x++) 
 		{
 			temporal = arreglo[x][vieja].getNumero();
 			arreglo[x][vieja].setNumero(arreglo[x][nueva].getNumero());
@@ -240,12 +296,8 @@ void Matriz::intercambiarElementos()
 		}
 
 	}
-	else if (eleccion == 2) 
+	else if (!eleccion) 
 	{
-		cout << "Que renglon quieres cambiar: ";
-		cin >> vieja;
-		cout << "A que renglon lo quieres mover: ";
-		cin >> nueva;
 
 		assert(vieja < N && "El numero de columna no existe");
 		assert(nueva < N && "El numero de columna no existe");
@@ -258,12 +310,43 @@ void Matriz::intercambiarElementos()
 		}
 
 	}
-	else 
-	{
-		cout << "Elegiste un numero equivocado, fin del metodo\n";
-	}
 }
 
+void Matriz::transpuesta() 
+{
+	Dato aux[50][50];
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			aux[j][i] = arreglo[i][j];
+		}
+	}
+	int auxInt = N;
+	N = M;
+	M = auxInt;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			arreglo[i][j] = aux[i][j];
+		}
+	}
+
+}
+
+int Matriz::sumaRenglonColumna(bool fila, int numeroDeFilaOColumna) {
+	if (fila) {
+		acumrenglon = 0;
+		for (int j = 0; j < M; j++) {
+			acumrenglon += arreglo[numeroDeFilaOColumna][j].getNumero();
+		}
+		return acumrenglon;
+	}
+	else {
+		acumcolumna = 0;
+		for (int i = 0; i < N; i++) {
+			acumcolumna += arreglo[i][numeroDeFilaOColumna].getNumero();
+		}
+		return acumcolumna;
+	}
+}
 
 void Matriz::operator+=(Matriz otraMatriz) 
 {
