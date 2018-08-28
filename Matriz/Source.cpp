@@ -22,15 +22,22 @@ int main(int argc, const char * argv[])
 	assert(argc<6 && "El numero de argumentos es erroneo" );
 
 //	Matriz miMatriz(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]), stoi(argv[4]));
-	Matriz miMatriz(4, 4, 1, 2);
+	Matriz miMatriz(4, 4, 1, 3);
 	miMatriz.Llenar();
 	cout << miMatriz;
+	/*
 	miMatriz.mostrarOrilla();
 	miMatriz.mostrarCentro();
 	miMatriz.intercambiarElementos(1,0,1);
 	cout << miMatriz;
 
 	miMatriz.intercambiarElementos(0, 2, 3);
+	cout << miMatriz;*/
+
+	miMatriz.bubbleSort(0, 0);
+	//miMatriz.bubbleSort(0, 1);
+	//miMatriz.bubbleSort(0, 2);
+	cout << endl << endl;
 	cout << miMatriz;
 
 	//Matriz otraMatriz(3, 3, 0, 1);

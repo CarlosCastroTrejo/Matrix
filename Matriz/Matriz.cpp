@@ -348,6 +348,203 @@ int Matriz::sumaRenglonColumna(bool fila, int numeroDeFilaOColumna) {
 	}
 }
 
+void Matriz::bubbleSort(bool fila, int numeroDeFilaOColumna) 
+{
+	
+	assert(fila == 1 || fila == 0 && "Se ha senalado un opcion no correcta");
+	bool ordered = false;
+	int tamano = 0;
+	int menor = 0;
+	if (fila) 
+	{
+		assert(numeroDeFilaOColumna < N && "El numero de fila no existe");
+		tamano = N - 1;
+		while (!ordered)
+		{
+			ordered = true;
+			for (int x = 0; x < tamano; x++) 
+			{
+				if (arreglo[numeroDeFilaOColumna][x].getNumero() > arreglo[numeroDeFilaOColumna][x + 1].getNumero()) 
+				{
+					ordered = false;
+					menor = arreglo[numeroDeFilaOColumna][x + 1].getNumero();
+					arreglo[numeroDeFilaOColumna][x + 1].setNumero(arreglo[numeroDeFilaOColumna][x].getNumero());
+					arreglo[numeroDeFilaOColumna][x].setNumero(menor);
+				}
+			}
+			tamano--;
+		}
+	}
+	else if(!fila)
+	{
+		assert(numeroDeFilaOColumna < M && "El numero de columna no existe");
+		tamano = M - 1;
+		while (!ordered)
+		{
+			ordered = true;
+			for (int x = 0; x < tamano; x++)
+			{
+				if (arreglo[x][numeroDeFilaOColumna].getNumero() > arreglo[x + 1][numeroDeFilaOColumna].getNumero())
+				{
+					ordered = false;
+					menor = arreglo[x + 1][numeroDeFilaOColumna].getNumero();
+					arreglo[x + 1][numeroDeFilaOColumna].setNumero(arreglo[x][numeroDeFilaOColumna].getNumero());
+					arreglo[x][numeroDeFilaOColumna].setNumero(menor);
+				}
+			}
+			tamano--;
+		}
+	}
+}
+
+void Matriz::insertionSort(bool fila, int numeroDeFilaOColumna)
+{
+	int comp, actual;
+	int i = numeroDeFilaOColumna;
+	if (fila) {
+		if (numeroDeFilaOColumna < M) {
+			actual = 0;
+			comp = 1;
+			while (comp < M) {
+				if (arreglo[i][actual].getNumero() > arreglo[i][comp].getNumero() && actual < M - 1) {
+					while (arreglo[i][comp].getNumero() < arreglo[i][comp - 1].getNumero() && comp >= 1) {
+						CambioAnterior(false, i, comp);
+						comp--;
+					}
+				}
+				actual++;
+				comp = actual + 1;
+			}
+		}
+	}
+	else {
+		if (numeroDeFilaOColumna < N) {
+			actual = 0;
+			comp = 1;
+			while (comp < N) {
+				if (arreglo[actual][i].getNumero() > arreglo[comp][i].getNumero() && actual < N - 1) {
+					while (arreglo[comp][i].getNumero() < arreglo[comp - 1][i].getNumero() && comp >= 1) {
+						CambioAnterior(true, i, comp);
+						comp--;
+					}
+				}
+				actual++;
+				comp = actual + 1;
+			}
+		}
+	}
+		
+		
+}
+
+void Matriz::rapido(int arregloAux[], int izq, int der) {
+	int i = izq, j = der;
+	//int pivote = arregloAux[(izq + der) / 2];
+	int pivote = arregloAux[izq];
+	cout << "Se entra con izq = " << izq << "y der = " << der << "pivote = " << pivote << "arregloAux actual = ";
+	for (int k = 0; k < N; k++) {
+		cout << arregloAux[k] << " ";
+	}
+	cout << endl;
+	while (i <= j) {
+		while (arregloAux[i] < pivote) {
+			i++;
+		}
+		while (arregloAux[j] > pivote) {
+			j--;
+		}
+		if (i <= j) {
+			cout << "Se hace cambio de " << arregloAux[i] << " con " << arregloAux[j] << endl;
+			double temp = arregloAux[i];
+			arregloAux[i] = arregloAux[j];
+			arregloAux[j] = temp;
+			i++;
+			j--;
+		}
+	}
+	if (izq < j) {
+		rapido(arregloAux, izq, j);
+	}
+	if (i < der) {
+		rapido(arregloAux, i, der);
+	}
+}
+
+void Matriz::QuickSort(bool fila, int numeroDeFilaOColumna) {
+	cout << numeroDeFilaOColumna << "  M =" << M;
+	if (fila) {
+
+		if (numeroDeFilaOColumna < M && numeroDeFilaOColumna >= 0) {
+			for (int i = 0; i < M; i++) {
+				arregloAux[i] = arreglo[numeroDeFilaOColumna][i].getNumero();
+			}
+			rapido(arregloAux, 0, M - 1);
+		}
+		for (int i = 0; i < M; i++) {
+			arreglo[numeroDeFilaOColumna][i].setNumero(arregloAux[i]);
+			cout << arregloAux[i] << "   ";
+		}
+	}
+	else {
+		if (numeroDeFilaOColumna < N && numeroDeFilaOColumna >= 0) {
+			for (int i = 0; i < N; i++) {
+				arregloAux[i] = arreglo[i][numeroDeFilaOColumna].getNumero();
+			}
+			rapido(arregloAux, 0, N - 1);
+		}
+		for (int i = 0; i < N; i++) {
+			arreglo[i][numeroDeFilaOColumna].setNumero(arregloAux[i]);
+			cout << arregloAux[i] << "   ";
+		}
+	}
+}
+
+void Matriz::SelectionSort(bool fila, int numeroDeFilaOColumna) {
+	double menor;
+	int posMenor;
+	Dato temp;
+	if (!fila) {
+		if (numeroDeFilaOColumna >= M) {
+			cout << "Numero de columna invalido" << endl;
+		}
+		else {
+			for (int i = 0; i < N; i++) {
+				posMenor = i;
+				menor = arreglo[i][numeroDeFilaOColumna].getNumero();
+				for (int k = i; k < N; k++) {
+					if (menor > arreglo[k][numeroDeFilaOColumna].getNumero()) {
+						menor = arreglo[k][numeroDeFilaOColumna].getNumero();
+						posMenor = k;
+					}
+				}
+				temp = arreglo[posMenor][numeroDeFilaOColumna];
+				arreglo[posMenor][numeroDeFilaOColumna] = arreglo[i][numeroDeFilaOColumna];
+				arreglo[i][numeroDeFilaOColumna] = temp;
+			}
+		}
+	}
+	else {
+		if (numeroDeFilaOColumna < N) {
+			for (int j = 0; j < M; j++) {
+				menor = arreglo[numeroDeFilaOColumna][j].getNumero();
+				posMenor = j;
+				for (int k = j; k < M; k++) {
+					if (menor > arreglo[numeroDeFilaOColumna][k].getNumero()) {
+						menor = arreglo[numeroDeFilaOColumna][k].getNumero();
+						posMenor = k;
+					}
+				}
+				temp = arreglo[numeroDeFilaOColumna][posMenor];
+				arreglo[numeroDeFilaOColumna][posMenor] = arreglo[numeroDeFilaOColumna][j];
+				arreglo[numeroDeFilaOColumna][j] = temp;
+			}
+		}
+		else {
+			cout << "Numero de fila invalido" << endl;
+		}
+	}
+}
+
 void Matriz::operator+=(Matriz otraMatriz) 
 {
 	if (this->N != otraMatriz.N || this->M != otraMatriz.M) 
@@ -413,6 +610,24 @@ ostream& operator<<(ostream &o, const Matriz  &ma)
 		o << endl;
 	}
 	return o;
+}
+
+void Matriz::CambioAnterior(bool column, int i, int j) {
+	Dato temp;
+	if (column) {
+		if (i < N) {
+			temp = arreglo[i - 1][j];
+			arreglo[i - 1][j] = arreglo[i][j];
+			arreglo[i][j] = temp;
+		}
+	}
+	else {
+		if (j < M) {
+			temp = arreglo[i][j - 1];
+			arreglo[i][j - 1] = arreglo[i][j];
+			arreglo[i][j] = temp;
+		}
+	}
 }
 
 Matriz::~Matriz()

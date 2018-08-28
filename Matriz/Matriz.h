@@ -25,6 +25,11 @@ class Matriz
 	//Variable que acumula la suma de los enteros en las columas especificados del Metodo Sum
 	int acumcolumna;
 
+	//Arreglo tipo doble auxiliar para duplicar una columna o fila especifica 
+	int arregloAux[50]; 
+
+	// Metodos
+
 	public:
 	/* Matriz : Constructor del objeto
 		Input: Entero que asigna el valor a N, entero que asigna el valor a M, entero que asigna el valor a formaCelda y entero que asigna el valor a tipoLlenado
@@ -100,6 +105,31 @@ class Matriz
 	*/
 	int sumaRenglonColumna(bool,int);
 
+	/* BubbleSort: Metodo encargado de arreglar Fila o Columna de la matriz con el metodo de BubbleSort
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: Ninguno
+	*/
+	void bubbleSort(bool, int);
+
+	/* Insertion Sort: Metodo encargado de arreglar Fila o Columna de la matriz con el metodo de Insertion
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: Ninguno
+	*/
+	void insertionSort(bool, int);
+
+	/* QuickSort: Metodo encargado de arreglar Fila o Columna de la matriz con el metodo de recursividad de QuickSort
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: Ninguno
+	*/
+	void QuickSort(bool, int);
+
+	/* QuickSort: Metodo encargado de arreglar Fila o Columna de la matriz con el metodo de recursividad de QuickSort
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: Ninguno
+	*/
+	void SelectionSort(bool, int);
+
+
 	/* Llenar: Metodo encargado de asignar valores a cada casilla de la Matriz
 		Input: Ninguno
 		Output: Ninguno
@@ -119,11 +149,24 @@ class Matriz
 	bool operator>(Matriz);
 
 	/* Sobrecarga del operador "<<": metodo para imprimir sobrecargando el operador <<
-	Input: ostream el cual se le asignara los datos y objeto de clase Matriz del cual se extraera la informacion
-	Output: ostream
+		Input: ostream el cual se le asignara los datos y objeto de clase Matriz del cual se extraera la informacion
+		Output: ostream
 	*/
 	friend ostream& operator<<(ostream&, const Matriz&);
 	
+	/* CambioAnterior: intercambia los datos de una casilla del arreglo arr con respecto la posicion anterior, ya sea trbajando con columnas o filas
+		Input: valor booleano para referirse si es columna o renglon, valor entero del numero de la columna o renglon a sumar
+		Output: Ninguno
+	*/
+	void CambioAnterior(bool, int, int); //(Columna?, i,j) 
+
+	/* Rapido: Metodo encargado de implementa el algoritmo de QuickSort par ordenar  
+		Input: arreglo a ordenar, valor entero de inicio desde donde se quiere ordenar, valor entero de final hasta donde se quiere ordenar) 
+		Output: Ninguno
+	*/
+	void rapido(int arr[], int izq, int der);//(arregloAux [], 
+
+
 	// Destructor
 	~Matriz();
 };
